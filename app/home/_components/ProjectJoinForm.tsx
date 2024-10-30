@@ -5,7 +5,6 @@ import { z } from "zod";
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
@@ -26,45 +25,26 @@ const JoinProjectSchema = z.object({
     .string()
     .min(1, "Please select your preferred role.")
     .max(30, "Role name can't exceed 30 characters."),
-    
-  topSkills: z
-    .array(z.string())
+
+  topSkill: z
+    .string()
     .min(1, "Please select at least one skill.")
-    .max(10, "You can select up to 10 skills."),
-    
-  skillLevel: z.enum(["Beginner", "Intermediate", "Advanced"]),
-    
-  relevantExperience: z
-    .string()
-    .max(200, "Experience description can't exceed 200 characters.")
-    .optional(),
+    .max(5, "You can select up to 5 skills."),
 
-  weeklyCommitment: z.enum(["Less than 5 hours", "5-10 hours", "10+ hours"]),
-  
-  startDate: z
+  skillLevel: z
     .string()
-    .refine(
-      (date) => !isNaN(Date.parse(date)),
-      "Invalid start date format."
-    ),
+    .min(1, "Please select your skill level.")
+    .max(30, "Skill level can't exceed 30 characters."),
 
-  projectGoals: z
+  weeklyCommitment: z
     .string()
-    .max(150, "Goals description can't exceed 150 characters."),
+    .min(1, "Please select your weekly commitment.")
+    .max(30, "Weekly commitment can't exceed 30 characters."),
     
   personalStatement: z
     .string()
     .min(10, "Please provide at least 10 characters.")
     .max(300, "Personal statement can't exceed 300 characters."),
-    
-  collaborationStyle: z
-    .array(z.enum(["Frequent Check-ins", "Independent Work", "Flexible Deadlines"]))
-    .min(1, "Please select at least one collaboration style."),
-    
-  questionsForLead: z
-    .string()
-    .max(200, "Questions can't exceed 200 characters.")
-    .optional(),
     
   resumeUrl: z
     .string()
@@ -72,25 +52,31 @@ const JoinProjectSchema = z.object({
     .optional()
 });
 
-const ProjectJoinForm = () => {
+const ProjectJoinForm = ({ setShowForm }: any) => {
 
   const form = useForm<z.infer<typeof JoinProjectSchema>>({
     resolver: zodResolver(JoinProjectSchema),
     defaultValues: {
-      linkedInProfile: "",
-      portfolioUrl: "",
+      linkedInProfile: "https://ui.shadcn.com/docs/components/select",
+      portfolioUrl: "https://ui.shadcn.com/docs/components/select",
       preferredRole: "frontend",
-      topSkills: [],
+      topSkill: "",
       skillLevel: "Beginner",
-      personalStatement: "",
-      resumeUrl: "",
+      personalStatement: "I am a frontend developer with 2 years of experience.",
+      weeklyCommitment: "5-10 hours",
+      resumeUrl: "https://ui.shadcn.com/docs/components/select",
     }
   })
+
+  const { formState } = useForm()
+  console.log('formState', formState.errors)
 
   const onSubmit = async (data: z.infer<typeof JoinProjectSchema>) => {
 
     // const result = await 
     console.log('data', data)
+    setShowForm(false)
+
   }
 
   return (
@@ -98,6 +84,7 @@ const ProjectJoinForm = () => {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col justify-start items-start gap-5 p-5">
+          <Label className="text-2xl font-semibold">Join Project</Label>
           <FormField
             control={form.control}
             name="linkedInProfile"
@@ -143,10 +130,10 @@ const ProjectJoinForm = () => {
           />
           <FormField
             control={form.control}
-            name="topSkills"
+            name="topSkill"
             render={({ field }) => (
               <FormItem className="w-full flex flex-col justify-start items-start">
-                <Label htmlFor="topSkills">Top Skills</Label>
+                <Label htmlFor="topSkill">Top Skills</Label>
                 <FormControl>
                   <Select onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -195,7 +182,43 @@ const ProjectJoinForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full h-10 text-base font-normal bg-orange-500">
+          <FormField
+            control={form.control}
+            name="weeklyCommitment"
+            render={({ field }) => (
+              <FormItem className="w-full flex flex-col justify-start items-start">
+                <Label htmlFor="weeklyCommitment">Weekly Commitment</Label>
+                <FormControl>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Commitment" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Less than 5 hours">Less than 5 hours</SelectItem>
+                      <SelectItem value="5-10 hours">5-10 hours</SelectItem>
+                      <SelectItem value="10+ hours">10+ hours</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="resumeUrl"
+            render={({ field }) => (
+              <FormItem className="w-full flex flex-col justify-start items-start">
+                <Label htmlFor="resumeUrl">Resume URL</Label>
+                <FormControl>
+                  <Input type="url" placeholder="https://resume.url" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            className="w-full h-10 text-base font-normal bg-orange-500"
+          >
             Join Project
           </Button>
         </form>

@@ -19,9 +19,17 @@ const ProjectCard = ({ item, bgColor }: any) => {
   return (
     <>
       {showForm && (
-        <div className="z-50 fixed top-0 left-0 w-[100vw] h-[100vh] bg-gray-200/50 flex justify-center items-center">
-          <div className="max-w-[500px] min-w-[300px] max-h-[80vh] min-h-[60vh] flex justify-start items-start bg-white overflow-hidden overflow-y-scroll rounded-lg">
-            <ProjectJoinForm />
+        <div
+          className="z-50 fixed top-0 left-0 w-[100vw] h-[100vh] bg-gray-200/50 backdrop-blur-[3px] flex justify-center items-start pt-10"
+          onClick={() => setShowForm(false)}
+        >
+          <div
+            className="max-w-[500px] min-w-[300px] max-h-[80vh] min-h-[60vh] flex justify-start items-start bg-white overflow-hidden overflow-y-scroll rounded-lg"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.stopPropagation();
+            }}
+          >
+            <ProjectJoinForm setShowForm={setShowForm} />
           </div>
         </div>
       )}

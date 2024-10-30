@@ -324,7 +324,7 @@ const ProjectList = () => {
                   return (
                     <div
                       key={index}
-                      className="col-span-1 w-full"
+                      className="col-span-1 w-full "
                       // onClick={() => router.push(`/project/${item._id}`)}
                     >
                       <ProjectCard bgColor={getPastelGradient()} item={{...item, categories: categoriesWithColor}} />
