@@ -24,7 +24,7 @@ const ProjectCard = ({ item, bgColor }: any) => {
           onClick={() => setShowForm(false)}
         >
           <div
-            className="max-w-[500px] min-w-[300px] max-h-[80vh] min-h-[60vh] flex justify-start items-start bg-white overflow-hidden overflow-y-scroll rounded-lg"
+            className="max-w-[500px] min-w-[300px] md:min-w-[500px] max-h-[80vh] min-h-[60vh] flex justify-start items-start bg-white overflow-hidden overflow-y-scroll rounded-lg"
             onClick={(e: React.MouseEvent<HTMLDivElement>) => {
               e.stopPropagation();
             }}

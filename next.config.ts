@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       'avatar.vercel.sh',
       'avatars.githubusercontent.com',
       'lh3.googleusercontent.com',
+      'placehold.co',
+      'fakeimg.pl'
     ]
   }
 };
