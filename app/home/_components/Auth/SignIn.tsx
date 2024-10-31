@@ -10,7 +10,8 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { Loader } from 'lucide-react';
-import { toast } from 'sonner';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { signIn } from 'next-auth/react';
 
 const FormSchema = z.object({
   email: z.string(),
@@ -19,7 +20,7 @@ const FormSchema = z.object({
   })
 })
 
-const SignIn = () => {
+const SignIn = ({ setShowRegistrationForm } : any) => {
 
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<Boolean>(false)
@@ -56,17 +57,17 @@ const SignIn = () => {
       <div className="w-[300px] h-full flex flex-col justify-center items-center gap-5">
         <p className="title-normal">Sign In</p>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-5">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-2">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <p className="label-big">Email</p>
+                  <p className="text-base">Email</p>
                   <FormControl>
                     <Input type="email" placeholder="example@gmail.com" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs font-light leading-tight"/>
                 </FormItem>
               )}
             />
@@ -75,11 +76,11 @@ const SignIn = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <p className="label-big">Password</p>
+                  <p className="text-base">Password</p>
                   <FormControl>
                     <Input type="password" placeholder="----------" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs font-light leading-tight"/>
                 </FormItem>
               )}
             />
@@ -92,14 +93,31 @@ const SignIn = () => {
             }
           </form>
         </Form>
+        <div className="w-[80%] h-[1px] bg-gray-300"></div>
+        <div className='w-full flex flex-col justify-start items-start gap-1'>
+          <Button
+            className="w-full flex justify-center items-center gap-2 bg-blue-500 text-white"
+            onClick={() => signIn("google")}
+          >
+            <FaGoogle className="w-6 h-6" />
+            <p>Continue with Google</p>
+          </Button>
+          <Button
+            className="w-full flex justify-center items-center gap-2 bg-gray-800 text-white"
+            onClick={() => signIn("github")}
+          >
+            <FaGithub className="w-6 h-6" />
+            <p>Continue with Github</p>
+          </Button>
+        </div>
         <div className="w-full flex justify-start items-center gap-2">
-          <p className="label-small">Do not have an account yet?</p>
-          <Link
-            href="/auth/signup"
-            className="label-small underline text-blue-500"
+          <p className="text-sm">Do not have an account yet?</p>
+          <div
+            onClick={() => setShowRegistrationForm("signup")}
+            className="text-sm underline text-blue-500 cursor-pointer"
           >
             Sign In
-          </Link>
+          </div>
         </div>
       </div>
     </div>

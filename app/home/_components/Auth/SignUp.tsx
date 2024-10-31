@@ -20,7 +20,7 @@ const FormSchema = z.object({
   })
 })
 
-const SignIn = ({ setShowRegistrationForm } : any) => {
+const SignUp = ({ setShowRegistrationForm } : any) => {
 
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<Boolean>(false)
@@ -107,4 +107,4 @@ const SignIn = ({ setShowRegistrationForm } : any) => {
   )
 }
 
-export default SignIn
+export default SignUp

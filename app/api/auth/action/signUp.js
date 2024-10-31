@@ -3,7 +3,7 @@ import { api } from '@/app/_api/api'
 export const signUp = async ({ dto }) => {
         
   console.log("REGISTER...")
-  const response = await fetch(`${api}/register`, {
+  const response = await fetch(`${api}/sign-up`, {
     method: "POST",
     headers: {
       "Accept": "application/json",
