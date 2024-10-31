@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
 
     if(!session) {
-      router.push('/home')
+      // router.push('/home')
     }
 
   }, [session])
