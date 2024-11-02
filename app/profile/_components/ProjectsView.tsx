@@ -1,22 +1,33 @@
-import { Pencil } from 'lucide-react'
-import React from 'react'
+"use client";
 
-const ProjectsView = () => {
+import ProjectCreationFrom from "./_projectsViewComponents/ProjectCreationFrom";
+import React, { useState } from "react";
+import ProjectListView from "./_projectsViewComponents/ProjectListView";
+
+const ProjectsView = ({ projects }: any) => {
+
+  const [showCreateProjectForm, setShowCreateProjectForm] = useState(false);
+
   return (
-    <div className="w-full h-full flex flex-col justify-start items-start gap-5">
+    <div className="relative w-full h-full flex justify-start items-start">
+      <div
+        className={`absolute top-0 left-0 w-full h-full flex flex-col justify-start items-start gap-5 duration-300 ease-in-out transition-all ${
+          !showCreateProjectForm && "scale-[1.1] opacity-0 pointer-events-none"
+        } bg-white`}
+      >
+        <ProjectCreationFrom setShowCreateProjectForm={setShowCreateProjectForm} />
+      </div>
 
-      <div className="group w-full flex flex-col justify-start items-start">
-        <div className="w-full flex justify-between items-center">
-          <p className="w-full text-lg border-black font-semibold">Collaborating Projects</p>
-          <div className="flex justify-center items-center gap-1 text-gray-500 hover:text-black group-hover:opacity-100 opacity-100 lg:opacity-0 duration-300 transition-all cursor-pointer">
-            <p className="text-xs font-normal">Edit</p>
-            <Pencil size={12} />
-          </div>
-        </div>
+      <div
+        className={`w-full h-full flex flex-col justify-start items-start gap-5 duration-300 ease-in-out transition-all ${
+          showCreateProjectForm && "scale-[0.8] opacity-0 pointer-events-none"
+        } bg-white`}
+      >
+        <ProjectListView setShowCreateProjectForm={setShowCreateProjectForm} projects={projects} />
       </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default ProjectsView
+export default ProjectsView;
