@@ -87,7 +87,10 @@ const config: Config = {
   			marquee: 'marquee var(--duration) infinite linear',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
-  		}
+  		},
+			space: { // overriding the stupid margin top and bottom
+				2: '0',
+			}
   	}
   },
   plugins: [require("tailwindcss-animate")],
