@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { Loader } from 'lucide-react';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { signIn } from 'next-auth/react';
+import { Label } from '@/components/ui/label';
 
 const FormSchema = z.object({
   email: z.string(),
@@ -63,7 +64,7 @@ const SignIn = ({ setShowRegistrationForm } : any) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <p className="text-base">Email</p>
+                  <Label className="text-base font-normal">Email</Label>
                   <FormControl>
                     <Input type="email" placeholder="example@gmail.com" {...field} />
                   </FormControl>
@@ -76,7 +77,7 @@ const SignIn = ({ setShowRegistrationForm } : any) => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <p className="text-base">Password</p>
+                  <Label className="text-base font-normal">Password</Label>
                   <FormControl>
                     <Input type="password" placeholder="----------" {...field} />
                   </FormControl>
