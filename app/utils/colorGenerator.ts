@@ -4,7 +4,7 @@ const getRandomColor = () => {
     const brightValue = Math.floor(Math.random() * 128 + 128).toString(16);
     color += brightValue.length === 1 ? '0' + brightValue : brightValue;
   }
-  return color + "50";
+  return color;
 }
 
 const getPastelGradient = () => {
