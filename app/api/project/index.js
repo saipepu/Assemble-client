@@ -1,3 +1,4 @@
-import { getAllProjects } from './action/getAllProjects';
+import { getAllProjects } from "./action/getAllProjects";
+import { createProject } from "./action/createProject";
 
-export { getAllProjects };
+export { getAllProjects, createProject };
